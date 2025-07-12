@@ -15,10 +15,9 @@ function 필수() {
   const [birthDay, setBirthDay] = useState("");
   const [error, setError] = useState("");
 
-  // 이메일 유효성 검사
-  const validateEmail = (email) => {
-    // 간단한 이메일 정규식
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  // 핸드폰폰 유효성 검사
+  const validatePhone = (phone) => {
+    return /^010-\d{4}-\d{4}$/.test(phone);
   };
 
   // 비밀번호 유효성 검사 (8~12자, 영문, 숫자, 특수문자 조합)
@@ -36,8 +35,8 @@ function 필수() {
   };
 
   const allValid =
-    email &&
-    validateEmail(email) &&
+    phone &&
+    validateEmail(phone) &&
     password &&
     validatePassword(password) &&
     passwordCheck &&
@@ -53,8 +52,8 @@ function 필수() {
 
   const handleNext = (e) => {
     e.preventDefault();
-    if (!validateEmail(email)) {
-      setError("올바른 이메일 형식을 입력해주세요.");
+    if (!validateEmail(phone)) {
+      setError("올바른 핸드폰 번호 형식을 입력해주세요.");
       return;
     }
     if (!validatePassword(password)) {
