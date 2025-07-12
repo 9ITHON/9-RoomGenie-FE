@@ -1,0 +1,142 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', Arial, sans-serif;
+}
+
+.join-container {
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 0 0 32px 0;
+    box-sizing: border-box;
+}
+
+/* 상단 로고 */
+.join-logo {
+    width: 120px;
+    margin: 32px auto 0 auto;
+    display: block;
+}
+
+/* 뒤로가기 화살표 */
+.join-back-arrow {
+    font-size: 28px;
+    color: #888;
+    margin: 32px 0 0 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+/* 타이틀 및 설명 */
+.join-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin: 32px 0 0 0;
+    padding: 0 24px;
+    line-height: 1.4;
+}
+
+.join-desc {
+    font-size: 14px;
+    color: #888;
+    margin: 8px 0 0 0;
+    padding: 0 24px;
+    line-height: 1.5;
+}
+
+.join-title .highlight {
+    color: #6C5CE7;
+    font-weight: 700;
+}
+
+/* 입력 필드 */
+.join-input-wrapper {
+    margin: 40px 0 0 0;
+    padding: 0 24px;
+}
+
+.join-input {
+    width: 100%;
+    padding: 16px 0;
+    border: none;
+    border-bottom: 1.5px solid #e0e0e0;
+    font-size: 16px;
+    color: #333;
+    background: transparent;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.join-input:focus {
+    border-bottom: 1.5px solid #6C5CE7;
+}
+
+.join-input::placeholder {
+    color: #bbb;
+    font-size: 15px;
+}
+
+/* 인증 버튼 */
+.join-btn-wrapper {
+    margin: 48px 0 0 0;
+    padding: 0 24px;
+}
+
+.join-btn {
+    width: 100%;
+    padding: 16px 0;
+    background: #A393F7;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(163, 147, 247, 0.08);
+}
+
+.join-btn:active {
+    background: #6C5CE7;
+}
+
+.join-btn:disabled {
+    background: #e0e0e0;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* 반응형 */
+@media (max-width: 480px) {
+    .join-container {
+        max-width: 100vw;
+        padding: 0 0 24px 0;
+    }
+    .join-title, .join-desc, .join-input-wrapper, .join-btn-wrapper {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    .join-logo {
+        width: 100px;
+        margin-top: 24px;
+    }
+    .join-back-arrow {
+        margin-top: 24px;
+        margin-left: 10px;
+    }
+}
