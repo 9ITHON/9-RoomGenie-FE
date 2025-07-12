@@ -184,7 +184,7 @@ export default function Information() {
             </div>
             {error && <div style={{ color: 'red', margin: '8px 0' }}>{error}</div>}
             <div className="필수-btn-wrapper">
-              <button type="submit" className="필수-btn" onClick={() => navigate('/home')}>다음</button>
+              <button type="submit" className="필수-btn">다음</button>
             </div>
           </form>
         </div>
