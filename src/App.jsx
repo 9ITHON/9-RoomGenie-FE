@@ -12,7 +12,11 @@ import GeniePage from './GeniePage';
 import { createGlobalStyle } from 'styled-components';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Login from './Login.jsx';
-import Membership from './Membership.jsx';
+import Join from './Join.jsx';
+import Confirm from './Confirm.jsx';
+import Information from './Information.jsx';
+import Nickname from './Nickname.jsx';
+import SignUp from './SignUp.jsx';
 
 const Header = styled.header`
   width: 100vw;
@@ -29,11 +33,11 @@ const Header = styled.header`
 `;
 
 const LogoImg = styled.img`
-  height: 100px;
+  height: 160px;
   padding: 10px;
   margin: 0;
   @media (max-width: 480px) {
-    height: 56px;
+    height: 100px;
     padding: 8px;
   }
 `;
@@ -228,15 +232,12 @@ function HomePage() {
   const [selectedTodoDate, setSelectedTodoDate] = useState(getTodayStr());
 
   // todo 완료/미완료 토글 함수
-  const toggleTodo = (id) => {
+  const toggleTodo = (id, date) => {
     setTodos(todos => todos.map(todo => {
-      if (todo.id === id) {
-        const today = new Date();
-        const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+      if (todo.id === id && todo.date === date) {
         return {
           ...todo,
           done: !todo.done,
-          completedDate: !todo.done ? todayStr : null
         };
       }
       return todo;
@@ -245,21 +246,22 @@ function HomePage() {
 
   // 특정 날짜의 완료된 todo들을 가져오는 함수
   const getCompletedTodosByDate = (dateStr) => {
-    return todos.filter(todo => todo.done && todo.completedDate === dateStr);
+    return todos.filter(todo => todo.done && todo.date === dateStr);
   };
 
-  // 할 일 추가 함수
+  // 할 일 추가 함수 (date 필드 항상 포함)
   const addTodo = (text) => {
     setTodos(todos => [
       ...todos,
-      { id: Date.now(), text, done: false, completedDate: null }
+      { id: Date.now(), text, done: false, date: selectedTodoDate }
     ]);
   };
 
   // Checklist + 버튼 클릭 핸들러
   const handleAddTodoClick = () => setIsAddTodoOpen(true);
   const handleAddTodo = (todoText) => {
-    setTodos(prev => [...prev, { text: todoText, done: false, date: selectedTodoDate }]);
+    addTodo(todoText);
+    setIsAddTodoOpen(false);
   };
 
   // 캘린더 모달에서 날짜 선택 시 호출
@@ -272,12 +274,13 @@ function HomePage() {
   return (
     <>
       <GlobalStyle />
-      <div className="screen" style={{ backgroundColor: '#fff', display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', minHeight: '100vh' }}>
-        <div className="div" style={{ backgroundColor: '#fff', minHeight: '100vh', position: 'relative', width: '100%', maxWidth: '100vw', overflowX: 'hidden' }}>
+      <div className="screen" style={{ backgroundColor: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', width: '100vw', minHeight: '100vh', minWidth: '100vw', boxSizing: 'border-box' }}>
+        <div className="div" style={{ backgroundColor: '#fff', minHeight: '100vh', minWidth: '100vw', width: '100vw', maxWidth: '100vw', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', overflowX: 'hidden', boxSizing: 'border-box', flex: 1 }}>
           <Header>
-            <LogoImg src="KakaoTalk_Photo_2025-07-12-19-34-48 003.pngKakaoTalk_Photo_2025-07-12-19-34-50 013.png" alt="RoomGENIE" />
+            <LogoImg src="KakaoTalk_Photo_2025-07-12-19-34-50 008.png" alt="RoomGENIE" />
+            <LogoImg src="KakaoTalk_Photo_2025-07-12-19-34-48 003.png" alt="RoomGENIE" />
           </Header>
-          <main style={{ paddingBottom: '80px' }}>
+          <main style={{ flex: 1, width: '100vw', maxWidth: '100vw', minHeight: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', paddingBottom: '80px', boxSizing: 'border-box' }}>
             <MissionCard>
               <MissionTitleRow>
                 <MissionTitle>TODAY's MISSION</MissionTitle>
@@ -300,7 +303,7 @@ function HomePage() {
             </MissionCard>
             <WeeklyTodoList
               todos={todos}
-              onToggleTodo={toggleTodo}
+              onToggleTodo={(id, date) => toggleTodo(id, date)}
               onAddTodo={handleAddTodoClick}
               onEdit={() => {}}
               getCompletedTodosByDate={getCompletedTodosByDate}
@@ -308,7 +311,7 @@ function HomePage() {
               onCalendarSelect={handleCalendarSelect}
             />
           </main>
-          <footer>
+          <footer style={{ width: '100vw', maxWidth: '100vw', minWidth: '100vw' }}>
             <FooterNav>
             <FooterItem onClick={() => navigate('/home')}>홈</FooterItem>
             <FooterItem onClick={() => navigate('/genie')}>GENIE</FooterItem>
@@ -352,6 +355,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/join" element={<Join />} />
+      <Route path="/confirm" element={<Confirm />} />
+      <Route path="/information" element={<Information />} />
+      <Route path="/nickname" element={<Nickname />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/genie" element={<GeniePage onBack={() => window.history.back()} />} />
       <Route path="/MissionProofPage" element={<MissionProofPage onBack={() => window.history.back()} />} />
@@ -359,4 +367,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

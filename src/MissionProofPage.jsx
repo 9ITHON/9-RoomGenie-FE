@@ -132,7 +132,26 @@ function MissionProofPage({ onBack }) {
   };
 
   const handleSubmit = () => {
-    console.log('Submitted');
+    const handleSubmit = async () => {
+      if (!beforeImageFile || !afterImageFile) {
+        alert('Before/After 사진 모두 선택해주세요.');
+        return;
+      }
+    
+      try {
+        const accessToken = localStorage.getItem('accessToken');
+        const response = await missionVerify(
+          'mission123',
+          beforeImageFile,
+          afterImageFile,
+          accessToken
+        );
+        alert('✅ AI 응답: ' + response);
+      } catch (error) {
+        console.error('❌ 오류:', error);
+        alert('❌ 전송 실패');
+      }
+    };
   };
   
   return (

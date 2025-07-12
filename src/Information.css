@@ -1,0 +1,115 @@
+.필수-container {
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 0 0 32px 0;
+    box-sizing: border-box;
+}
+
+/* 상단 로고 */
+.필수-logo {
+    width: 120px;
+    margin: 32px auto 0 auto;
+    display: block;
+}
+
+/* 타이틀 */
+.필수-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin: 32px 0 0 0;
+    padding: 0 32px;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+}
+
+.필수-title .highlight {
+    color: #6C5CE7;
+    font-weight: 700;
+}
+
+/* 입력 필드 */
+.필수-input-wrapper {
+    margin: 40px 0 0 0;
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.필수-input {
+    width: 100%;
+    padding: 16px 0;
+    border: none;
+    border-bottom: 1.5px solid #e0e0e0;
+    font-size: 16px;
+    color: #333;
+    background: transparent;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 0;
+}
+
+.필수-input:focus {
+    border-bottom: 1.5px solid #6C5CE7;
+}
+
+.필수-input::placeholder {
+    color: #bbb;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* 다음 버튼 */
+.필수-btn-wrapper {
+    margin: 48px 0 0 0;
+    padding: 0 32px;
+}
+
+.필수-btn {
+    width: 100%;
+    padding: 16px 0;
+    background: #A393F7;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+    box-shadow: 0 2px 8px rgba(163, 147, 247, 0.08);
+    margin-top: 16px;
+}
+
+.필수-btn:active {
+    background: #6C5CE7;
+}
+
+.필수-btn:disabled {
+    background: #e0e0e0;
+    color: #aaa;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* 반응형 */
+@media (max-width: 480px) {
+    .필수-container {
+        max-width: 100vw;
+        padding: 0 0 24px 0;
+    }
+    .필수-title, .필수-input-wrapper, .필수-btn-wrapper {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    .필수-logo {
+        width: 100px;
+        margin-top: 24px;
+    }
+}

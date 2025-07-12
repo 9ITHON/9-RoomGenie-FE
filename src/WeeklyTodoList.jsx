@@ -173,11 +173,11 @@ function WeeklyTodoList({ todos, onToggleTodo, onAddTodo, getCompletedTodosByDat
         ) : (
           <TodoList>
             {filteredTodos.map(todo => (
-              <TodoItem key={todo.text + todo.date} done={todo.done}>
+              <TodoItem key={todo.id + todo.date} done={todo.done}>
                 <Checkbox
                   type="checkbox"
                   checked={todo.done}
-                  onChange={() => onToggleTodo(todo.id)}
+                  onChange={() => onToggleTodo(todo.id, todo.date)}
                 />
                 {todo.text}
               </TodoItem>
