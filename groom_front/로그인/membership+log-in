@@ -1,0 +1,159 @@
+// RoomGenie.js
+// 로그인 및 회원가입 흐름 전체
+
+import React, { useState } from "react";
+import "./RoomGenie.css";
+
+export default function RoomGenie() {
+  const [step, setStep] = useState(0);
+
+  const goNext = () => setStep((prev) => prev + 1);
+
+  return (
+    <div className="page-container">
+      {step === 0 && <LoginPage onNext={() => setStep(1)} />}
+      {step === 1 && <AgreementPage onNext={goNext} />}
+      {step === 2 && <PhoneAuthPage onNext={goNext} />}
+      {step === 3 && <InfoInputPage onNext={goNext} />}
+      {step === 4 && <NicknamePage onNext={goNext} />}
+      {step === 5 && <LoadingPage />}
+    </div>
+  );
+}
+
+function LoginPage({ onNext }) {
+  return (
+    <div className="login-container">
+      <h1 className="logo-text">RoomGenie</h1>
+      <input type="text" placeholder="아이디" className="input-field" />
+      <input type="password" placeholder="비밀번호" className="input-field" />
+      <div className="auto-login">
+        <input type="checkbox" id="autoLogin" className="mr-1" />
+        <label htmlFor="autoLogin">자동 로그인</label>
+      </div>
+      <button className="btn" onClick={onNext}>로그인</button>
+      <button className="btn light">회원가입</button>
+    </div>
+  );
+}
+
+function AgreementPage({ onNext }) {
+  const [checkedItems, setCheckedItems] = useState([]);
+  const terms = [
+    { id: 1, text: "이용약관 동의 (필수)", required: true },
+    { id: 2, text: "만 14세 이상 동의 (필수)", required: true },
+    { id: 3, text: "개인정보 수집 및 이용 동의 (필수)", required: true },
+    { id: 4, text: "제3자 서비스 이용약관 동의 (필수)", required: true },
+    { id: 5, text: "마케팅 정보 수신 동의 (선택)", required: false },
+    { id: 6, text: "개인정보 수집 및 이용 동의 (선택)", required: false },
+  ];
+  const toggleCheck = (id) => {
+    setCheckedItems((prev) =>
+      prev.includes(id) ? prev.filter((v) => v !== id) : [...prev, id]
+    );
+  };
+  const allRequiredChecked = terms
+    .filter((t) => t.required)
+    .every((t) => checkedItems.includes(t.id));
+
+  return (
+    <div>
+      <h2>
+        시작을 위해서는 <span className="highlight">약관 동의</span>가 필요해요.
+      </h2>
+      <div className="checkbox-group">
+        {terms.map((term) => (
+          <label key={term.id} className="checkbox-item">
+            <input
+              type="checkbox"
+              checked={checkedItems.includes(term.id)}
+              onChange={() => toggleCheck(term.id)}
+            />
+            {term.text}
+          </label>
+        ))}
+      </div>
+      <button className="btn" disabled={!allRequiredChecked} onClick={onNext}>
+        다음
+      </button>
+    </div>
+  );
+}
+
+function PhoneAuthPage({ onNext }) {
+  const [phone, setPhone] = useState("");
+  const [code, setCode] = useState("");
+  const [sentCode, setSentCode] = useState(null);
+
+  const sendCode = () => {
+    if (phone.length >= 10) setSentCode("1234");
+  };
+  const isVerified = sentCode && code === sentCode;
+
+  return (
+    <div>
+      <h2>
+        <span className="highlight">휴대폰 번호</span>로 간편하게 가입해요!
+      </h2>
+      <p>유일한 서비스를 위해, 휴대폰 번호를 입력해주세요.</p>
+      <input
+        placeholder="전화번호를 입력해주세요"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+      />
+      {sentCode && (
+        <input
+          placeholder="인증번호 입력"
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+        />
+      )}
+      <button className="btn" onClick={isVerified ? onNext : sendCode}>
+        {isVerified ? "다음" : "인증 문자 받기"}
+      </button>
+    </div>
+  );
+}
+
+function InfoInputPage({ onNext }) {
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+  const [confirmPw, setConfirmPw] = useState("");
+  const [birth, setBirth] = useState("");
+  const isFilled = email && pw.length >= 8 && pw === confirmPw && birth.length === 8;
+
+  return (
+    <div>
+      <h2>
+        원활한 서비스를 위해, <span className="highlight">필수 정보</span>를 입력해주세요!
+      </h2>
+      <input placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input placeholder="비밀번호" type="password" value={pw} onChange={(e) => setPw(e.target.value)} />
+      <input placeholder="비밀번호 확인" type="password" value={confirmPw} onChange={(e) => setConfirmPw(e.target.value)} />
+      <input placeholder="생년월일 (8자리)" value={birth} onChange={(e) => setBirth(e.target.value)} />
+      {isFilled && <button className="btn" onClick={onNext}>다음</button>}
+    </div>
+  );
+}
+
+function NicknamePage({ onNext }) {
+  const [nickname, setNickname] = useState("");
+  return (
+    <div>
+      <h2>
+        원활한 서비스를 위해, <span className="highlight">닉네임</span>을 입력해주세요!
+      </h2>
+      <input placeholder="닉네임" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+      <button className="btn" onClick={onNext} disabled={!nickname}>회원가입 완료</button>
+    </div>
+  );
+}
+
+function LoadingPage() {
+  return (
+    <div>
+      <img src="/roomgenie-loading.png" alt="RoomGenie" width="200" />
+      <h1 className="highlight">RoomGenie</h1>
+    </div>
+  );
+}
