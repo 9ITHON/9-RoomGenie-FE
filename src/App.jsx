@@ -11,7 +11,8 @@ import CalendarModal from './CalendarModal';
 import GeniePage from './GeniePage';
 import { createGlobalStyle } from 'styled-components';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-
+import Login from './Login.jsx';
+import Membership from './Membership.jsx';
 
 const Header = styled.header`
   width: 100vw;
@@ -274,7 +275,7 @@ function HomePage() {
       <div className="screen" style={{ backgroundColor: '#fff', display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', minHeight: '100vh' }}>
         <div className="div" style={{ backgroundColor: '#fff', minHeight: '100vh', position: 'relative', width: '100%', maxWidth: '100vw', overflowX: 'hidden' }}>
           <Header>
-            <LogoImg src="KakaoTalk_Photo_2025-07-09-01-22-40.png" alt="RoomGENIE" />
+            <LogoImg src="KakaoTalk_Photo_2025-07-12-19-34-48 003.pngKakaoTalk_Photo_2025-07-12-19-34-50 013.png" alt="RoomGENIE" />
           </Header>
           <main style={{ paddingBottom: '80px' }}>
             <MissionCard>
@@ -309,7 +310,7 @@ function HomePage() {
           </main>
           <footer>
             <FooterNav>
-            <FooterItem onClick={() => navigate('/')}>홈</FooterItem>
+            <FooterItem onClick={() => navigate('/home')}>홈</FooterItem>
             <FooterItem onClick={() => navigate('/genie')}>GENIE</FooterItem>
             </FooterNav>
           </footer>
@@ -350,7 +351,8 @@ function HomePage() {
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/home" element={<HomePage />} />
       <Route path="/genie" element={<GeniePage onBack={() => window.history.back()} />} />
       <Route path="/MissionProofPage" element={<MissionProofPage onBack={() => window.history.back()} />} />
     </Routes>

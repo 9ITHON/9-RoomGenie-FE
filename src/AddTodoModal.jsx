@@ -151,7 +151,7 @@ function AddTodoModal({ open, onClose, onAdd, placeholder = '할 일을 입력�
         />
         <ButtonRow>
           <CancelButton onClick={onClose}>취소</CancelButton>
-          <AddButton onClick={() => { if(value.trim()) { onAdd(value); setValue(''); onClose(); } }}>
+          <AddButton onClick={() => {if(value.trim()) { onAdd(value); setValue(''); onClose(); }}}>
             추가
           </AddButton>
         </ButtonRow>

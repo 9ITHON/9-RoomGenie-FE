@@ -308,8 +308,7 @@ function CalendarModal({ open, onClose, onSelect, todos = [], selectedDate }) {
                 isSelected={selected === i+1}
                 isToday={year === today.getFullYear() && month === today.getMonth() && i+1 === today.getDate()}
                 hasTodo={todosForDate.some(todo => todo.date === selectedDateStr && todo.day === i+1)}
-                onClick={() => { setSelected(i+1); setShowTodos(false); }}
-              >
+                onClick={() => { setSelected(i+1); setShowTodos(false); }}>
                 {i+1}
               </DayButton>
             ))}
